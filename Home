@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metaminds Ecom - Premium E-commerce Management Agency</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- Custom CSS for Preloader & Advanced Animations -->
+    <style>
+        /* --- Base Styles --- */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Hide scrollbars while preloader is active */
+            background-color: #ffffff;
+            color: #111827; /* Dark Gray */
+        }
+
+        /* --- New Heartbeat Preloader --- */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0f172a; /* Changed to dark background (slate-900) */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 1s ease-out, visibility 1s ease-out;
+            visibility: visible;
+        }
+        
+        #loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loading svg polyline {
+          fill: none;
+          stroke-width: 3;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+
+        .loading svg polyline#back {
+          fill: none;
+          stroke: rgba(212, 175, 55, 0.2); /* Gold Transparent */
+        }
+
+        .loading svg polyline#front {
+          fill: none;
+          stroke: #D4AF37; /* Gold */
+          stroke-dasharray: 48, 144;
+          stroke-dashoffset: 192;
+          animation: dash_682 1.4s linear infinite;
+        }
+
+        @keyframes dash_682 {
+          72.5% {
+            opacity: 0;
+          }
+          to {
+            stroke-dashoffset: 0;
+          }
+        }
+
+        /* --- Main Website Styles --- */
+        #main-content {
+            display: none; /* Hidden by default */
+        }
+        
+        .font-poppins { font-family: 'Poppins', sans-serif; }
+        .section-title { font-family: 'Poppins', sans-serif; }
+
+        .hero-gradient-text {
+            background: -webkit-linear-gradient(45deg, #1d4ed8, #D4AF37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .glow-button-blue {
+            box-shadow: 0 0 5px #1d4ed8, 0 0 15px #1d4ed8;
+            transition: all 0.3s ease-in-out;
+        }
+        .glow-button-blue:hover {
+            box-shadow: 0 0 10px #1d4ed8, 0 0 25px #1d4ed8;
+        }
+        
+        .glow-button-gold {
+            box-shadow: 0 0 5px #D4AF37, 0 0 15px #D4AF37;
+            transition: all 0.3s ease-in-out;
+        }
+        .glow-button-gold:hover {
+            box-shadow: 0 0 10px #D4AF37, 0 0 25px #D4AF37;
+        }
+
+        /* Service Card Hover Effect */
+        .service-card {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-12px);
+            border-color: #D4AF37;
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.15);
+        }
+        .service-card .details {
+            max-height: 0;
+            opacity: 0;
+            transition: max-height 0.5s ease-out, opacity 0.4s ease-out, margin-top 0.4s ease-out;
+            overflow: hidden;
+        }
+        .service-card:hover .details {
+            max-height: 500px;
+            opacity: 1;
+            margin-top: 1.5rem; /* mt-6 */
+        }
+        
+        /* Scroll Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* FAQ Accordion */
+        .faq-item details[open] summary ~ * {
+            animation: sweep .5s ease-in-out;
+        }
+        @keyframes sweep {
+            0%    {opacity: 0; max-height: 0;}
+            100%  {opacity: 1; max-height: 500px;}
+        }
+        .faq-item summary::-webkit-details-marker { display: none; }
+    </style>
+</head>
+<body class="bg-white">
+
+    <!-- Premium Loader -->
+    <div id="loader">
+        <div class="loading">
+          <svg width="64px" height="48px">
+              <polyline points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24" id="back"></polyline>
+            <polyline points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24" id="front"></polyline>
+          </svg>
+        </div>
+    </div>
+
+    <!-- Main Website Content -->
+    <div id="main-content">
+        <!-- Header -->
+        <header class="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-50">
+            <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <div class="text-2xl font-extrabold font-poppins text-gray-800">Metaminds Ecom</div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#services" class="text-gray-600 hover:text-blue-700 transition-colors duration-300 font-medium">Services</a>
+                    <a href="#process" class="text-gray-600 hover:text-blue-700 transition-colors duration-300 font-medium">Process</a>
+                    <a href="#testimonials" class="text-gray-600 hover:text-blue-700 transition-colors duration-300 font-medium">Testimonials</a>
+                    <a href="#faq" class="text-gray-600 hover:text-blue-700 transition-colors duration-300 font-medium">FAQ</a>
+                    <a href="#contact" class="bg-blue-700 text-white font-semibold px-5 py-2 rounded-lg hover:bg-blue-800 transition-all duration-300 shadow-lg hover:shadow-blue-500/30">Get a Quote</a>
+                </div>
+                <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
+                    <i class="ph-bold ph-list text-3xl"></i>
+                </button>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="relative bg-white py-24 md:py-40 overflow-hidden">
+            <div class="container mx-auto px-6 text-center relative z-10">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 section-title leading-tight">
+                    Luxury E-commerce <span class="hero-gradient-text">Management</span>
+                </h1>
+                <p class="mt-6 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">We provide elite, full-service management for scaling your brand on Amazon, Walmart, and eBay. Experience unparalleled growth with a touch of class.</p>
+                <a href="#services" class="mt-10 inline-block bg-blue-700 text-white text-lg font-semibold px-8 py-4 rounded-lg shadow-xl hover:bg-blue-800 transition-all duration-300 transform hover:scale-105 glow-button-blue">Explore Our Services</a>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-20 bg-slate-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 section-title">Full-Spectrum Marketplace Management</h2>
+                    <p class="mt-3 text-gray-600 max-w-2xl mx-auto">We provide comprehensive, tailored strategies for the world's leading e-commerce platforms.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Amazon Card -->
+                    <div class="service-card rounded-xl p-8 reveal">
+                        <div class="flex items-center mb-4"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon Logo" class="h-8 mr-4">
+                            <h3 class="text-2xl font-bold text-gray-900 section-title">Amazon</h3></div>
+                        <p class="text-gray-600">Master FBA & FBM on the world's largest marketplace for unparalleled growth.</p>
+                        <ul class="details space-y-3 text-gray-700">
+                            <li class="flex items-center"><i class="ph-fill ph-check-circle text-blue-600 mr-3"></i>Data-Driven Product Research</li>
+                            <li class="flex items-center"><i class="ph-fill ph-check-circle text-blue-600 mr-3"></i>A+ Content & SEO Listing</li>
+                            <li class="flex items-center"><i class="ph-fill ph-check-circle text-blue-600 mr-3"></i>PPC Campaign Management</li>
+                            <li class="flex items-center"><i class="ph-fill ph-check-circle text-blue-600 mr-3"></i>FBA/FBM Logistics & Inventory</li>
+                        </ul>
+                    </div>
+
+                    <!-- Walmart Card -->
+                    <div class="service-card rounded-xl p-8 reveal" style="transition-delay: 100ms;">
+                        <div class="flex items-center mb-4"><img src="https://upload.wikimedia.org/wikipedia/commons/1/14/Walmart_Spark.svg" alt="Walmart Logo" class="h-8 mr-4">
+                            <h3 class="text-2xl font-bold text-gray-900 section-title">Walmart</h3></div>
+                        <p class="text-gray-600">Expand your reach on one of the fastest-growing online marketplaces.</p>
+                        <ul class="details space-y-3 text-gray-700">
+                            <li class="flex items-center"><i class="ph-fill ph-check-circle text-blue-600 mr-3"></i>Marketplace Opportunity Analysis</li>
+                            <li class="flex items-center"><i class="ph-fill ph-check-circle text-blue-600 mr-3"></i>WFS & Pro Seller Badge Strategy</li>
+                            <li class="flex items-center"><i class="ph-fill ph-check-circle text-blue-600 mr-3"></i>Compliant & Optimized Listings</li>
+                            <li class="flex items-center"><i class="ph-fill ph-check-circle text-blue-600 mr-3"></i>Multi-Channel Inventory Sync</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- eBay Card -->
+                    <div class="service-card rounded-xl p-8 reveal" style="transition-delay: 200ms;">
+                        <div class="flex items-center mb-4"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/EBay_logo.svg" alt="eBay Logo" class="h-8 mr-4">
+                            <h3 class="text-2xl font-bold text-gray-900 section-title">eBay</h3></div>
+                        <p class="text-gray-600">Leverage eBay's unique audience with targeted and effective store management.</p>
+                        <ul class="details space-y-3 text-gray-700">
+                           <li class="flex items-center"><i class="ph-fill ph-check-circle text-blue-600 mr-3"></i>Niche & Collectible Research</li>
+                           <li class="flex items-center"><i class="ph-fill ph-check-circle text-blue-600 mr-3"></i>Cassini Search Engine Optimization</li>
+                           <li class="flex items-center"><i class="ph-fill ph-check-circle text-blue-600 mr-3"></i>Promoted Listings Campaigns</li>
+                           <li class="flex items-center"><i class="ph-fill ph-check-circle text-blue-600 mr-3"></i>Seller Reputation Management</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Section -->
+        <section id="process" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 section-title">Our Path to Your Success</h2>
+                    <p class="mt-3 text-gray-600">A proven, transparent process designed for sustainable growth.</p>
+                </div>
+                <div class="relative grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+                    <div class="hidden md:block absolute top-8 left-0 w-full h-0.5 bg-gray-200" style="z-index: 0;"></div>
+                    
+                    <div class="relative flex flex-col items-center reveal">
+                        <div class="bg-blue-700 text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold border-4 border-white z-10 shadow-lg">1</div>
+                        <h3 class="mt-4 text-xl font-semibold text-gray-800">Discovery & Audit</h3>
+                        <p class="mt-2 text-gray-500 text-sm">We analyze your brand, products, and competitors to build a custom roadmap.</p>
+                    </div>
+                    <div class="relative flex flex-col items-center reveal" style="transition-delay: 150ms;">
+                        <div class="bg-blue-700 text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold border-4 border-white z-10 shadow-lg">2</div>
+                        <h3 class="mt-4 text-xl font-semibold text-gray-800">Strategy & Setup</h3>
+                        <p class="mt-2 text-gray-500 text-sm">Develop a data-backed strategy and optimize your store for peak performance.</p>
+                    </div>
+                    <div class="relative flex flex-col items-center reveal" style="transition-delay: 300ms;">
+                        <div class="bg-blue-700 text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold border-4 border-white z-10 shadow-lg">3</div>
+                        <h3 class="mt-4 text-xl font-semibold text-gray-800">Execution & Growth</h3>
+                        <p class="mt-2 text-gray-500 text-sm">Launch campaigns, manage operations, and drive targeted traffic to your listings.</p>
+                    </div>
+                    <div class="relative flex flex-col items-center reveal" style="transition-delay: 450ms;">
+                        <div class="bg-amber-500 text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold border-4 border-white z-10 shadow-lg">4</div>
+                        <h3 class="mt-4 text-xl font-semibold" style="color: #D4AF37;">Optimize & Scale</h3>
+                        <p class="mt-2 text-gray-500 text-sm">Continuously refine based on performance data to maximize ROI and scale your empire.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="py-20 bg-slate-50">
+            <div class="container mx-auto px-6 reveal">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 section-title">Trusted by Growing Brands</h2>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="bg-white p-8 rounded-lg border border-gray-200 shadow-sm">
+                        <p class="text-gray-600 italic">"Metaminds transformed our Amazon presence. Our sales have increased by 200% in just six months. Their attention to detail is unmatched."</p>
+                        <div class="mt-4 flex items-center">
+                            <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-800 flex items-center justify-center font-bold">JS</div>
+                            <div class="ml-4">
+                                <p class="font-semibold text-gray-800">John Smith</p>
+                                <p class="text-gray-500 text-sm">CEO, GadgetPro</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg border-2 border-amber-400 transform lg:scale-105 shadow-2xl">
+                        <p class="text-gray-600 italic">"Their team handled our Walmart launch flawlessly. The process was smooth, and we hit our sales targets in the first quarter. Highly recommended!"</p>
+                        <div class="mt-4 flex items-center">
+                            <div class="w-12 h-12 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center font-bold">AW</div>
+                            <div class="ml-4">
+                                <p class="font-semibold text-gray-800">Alice Williams</p>
+                                <p class="text-gray-500 text-sm">Founder, HomeGoods Inc.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg border border-gray-200 shadow-sm">
+                        <p class="text-gray-600 italic">"We were struggling with eBay's complexities. Metaminds stepped in and optimized everything. Our seller rating is up, and so are our profits."</p>
+                        <div class="mt-4 flex items-center">
+                            <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-800 flex items-center justify-center font-bold">MB</div>
+                            <div class="ml-4">
+                                <p class="font-semibold text-gray-800">Michael Brown</p>
+                                <p class="text-gray-500 text-sm">Owner, Vintage Finds</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="py-20 bg-white">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <div class="text-center mb-12 reveal">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 section-title">Frequently Asked Questions</h2>
+                </div>
+                <div class="space-y-4 reveal">
+                    <div class="faq-item bg-slate-50 border border-gray-200 rounded-lg">
+                        <details class="p-6 cursor-pointer">
+                            <summary class="flex justify-between items-center font-semibold text-gray-800 text-lg">
+                                What marketplaces do you specialize in?
+                                <i class="ph-bold ph-plus text-xl text-blue-700 transition-transform duration-300"></i>
+                            </summary>
+                            <p class="mt-4 text-gray-600">We are experts in managing and scaling stores on Amazon (both FBA and FBM), Walmart Marketplace, and eBay. We provide tailored strategies for each platform's unique ecosystem.</p>
+                        </details>
+                    </div>
+                    <div class="faq-item bg-slate-50 border border-gray-200 rounded-lg">
+                        <details class="p-6 cursor-pointer">
+                            <summary class="flex justify-between items-center font-semibold text-gray-800 text-lg">
+                                How do you handle product research?
+                                <i class="ph-bold ph-plus text-xl text-blue-700 transition-transform duration-300"></i>
+                            </summary>
+                            <p class="mt-4 text-gray-600">Our product research is a data-intensive process. We use premium tools to analyze market demand, competition levels, profitability margins, seasonality, and supplier reliability to identify winning products for your brand.</p>
+                        </details>
+                    </div>
+                    <div class="faq-item bg-slate-50 border border-gray-200 rounded-lg">
+                        <details class="p-6 cursor-pointer">
+                            <summary class="flex justify-between items-center font-semibold text-gray-800 text-lg">
+                                What is your pricing model?
+                                <i class="ph-bold ph-plus text-xl text-blue-700 transition-transform duration-300"></i>
+                            </summary>
+                            <p class="mt-4 text-gray-600">Our pricing is flexible and depends on the scope of services required. We offer monthly retainers, commission-based models, and hybrid packages. Contact us for a custom quote tailored to your business needs.</p>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer id="contact" class="bg-slate-900 text-white">
+            <div class="container mx-auto px-6 py-12">
+                <div class="text-center">
+                    <h3 class="text-3xl font-bold section-title">Ready to Elevate Your E-commerce Game?</h3>
+                    <p class="mt-3 text-slate-400 max-w-xl mx-auto">Don't let platform complexities hold you back. Let's build your success story together.</p>
+                    <a href="mailto:contact@metamindsecom.com" class="mt-8 inline-block bg-amber-500 text-white text-lg font-semibold px-8 py-4 rounded-lg shadow-lg hover:bg-amber-600 transition-all duration-300 transform hover:scale-105 glow-button-gold">Schedule a Free Consultation</a>
+                </div>
+                <div class="mt-12 pt-8 border-t border-slate-700 flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-slate-500">&copy; 2025 Metaminds Ecom. All Rights Reserved.</p>
+                    <div class="flex space-x-4 mt-4 md:mt-0">
+                        <a href="#" class="text-slate-500 hover:text-amber-400 transition-colors"><i class="ph-bold ph-twitter-logo text-2xl"></i></a>
+                        <a href="#" class="text-slate-500 hover:text-amber-400 transition-colors"><i class="ph-bold ph-linkedin-logo text-2xl"></i></a>
+                        <a href="#" class="text-slate-500 hover:text-amber-400 transition-colors"><i class="ph-bold ph-facebook-logo text-2xl"></i></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Website Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Preloader Logic ---
+            const loader = document.getElementById('loader');
+            const mainContent = document.getElementById('main-content');
+            setTimeout(() => {
+                loader.classList.add('hidden');
+                loader.addEventListener('transitionend', () => {
+                    mainContent.style.display = 'block';
+                    document.body.style.overflow = 'auto';
+                    // Trigger initial scroll animations
+                    revealOnScroll(); 
+                }, { once: true });
+            }, 2800); // 2.8-second loader display to match animation
+
+            // --- Scroll Animation Logic ---
+            const revealElements = document.querySelectorAll('.reveal');
+            const revealOnScroll = () => {
+                const windowHeight = window.innerHeight;
+                revealElements.forEach(el => {
+                    const elementTop = el.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - 100) { // Reveal when 100px from bottom
+                        el.classList.add('visible');
+                    }
+                });
+            };
+            window.addEventListener('scroll', revealOnScroll);
+
+            // --- FAQ Accordion Icon Toggle ---
+            const detailsElements = document.querySelectorAll('.faq-item details');
+            detailsElements.forEach(details => {
+                details.addEventListener('toggle', () => {
+                    const icon = details.querySelector('i');
+                    if (details.open) {
+                        icon.classList.remove('ph-plus');
+                        icon.classList.add('ph-minus');
+                    } else {
+                        icon.classList.remove('ph-minus');
+                        icon.classList.add('ph-plus');
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
